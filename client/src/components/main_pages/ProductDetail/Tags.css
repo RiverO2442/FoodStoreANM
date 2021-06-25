@@ -1,0 +1,34 @@
+.tags-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.tags-container i {
+  margin-right: 3px;
+}
+
+.tags-container h6 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 15px;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.tags-list li {
+  align-items: center;
+  background-color: #25cbee;
+  border-radius: 6px;
+  color: #fff;
+  list-style: none;
+  margin: 5px;
+  padding: 5px;
+  text-transform: capitalize;
+}

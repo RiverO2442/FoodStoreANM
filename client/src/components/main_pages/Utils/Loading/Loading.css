@@ -1,0 +1,14 @@
+.HashLoader {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  position: absolute;
+  right: 400px;
+  top: 400px;
+}
+
+.loader-title {
+  position: absolute;
+  right: 200px;
+  top: 400px;
+}

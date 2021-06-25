@@ -1,0 +1,65 @@
+/* 
+CSS dùng chung cho cả login và register */
+
+/* .login-page {
+  max-width: 100%;
+  border: 2px solid rgb(3, 165, 206);
+  border-radius: 5px;
+  padding: 40px;
+  margin: 50px auto;
+}
+
+.login-page h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+}
+
+.login-page form input,
+.login-page form button {
+  width: 100%;
+  height: 40px;
+  margin: 10px 0px;
+  padding: 0px 5px;
+  outline: rgb(3, 165, 206);
+  border: 1px solid rgb(3, 165, 206);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-page form button {
+  width: 150px;
+  background: rgb(3, 165, 206);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.login-page form a {
+  color: orange;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+} */
+
+/* Facebook && Google  */
+
+.login-page .hr {
+  margin: 15px 0;
+  color: crimson;
+}
+
+.login-page .social button {
+  width: 100%;
+  margin: 10px 10px;
+  height: 60px;
+  font-size: 14px;
+  font-weight: 200;
+  text-transform: capitalize;
+  letter-spacing: 1.3px;
+  box-shadow: 0 2px 4px #777;
+  text-align: left;
+}

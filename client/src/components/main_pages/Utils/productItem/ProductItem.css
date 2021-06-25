@@ -1,0 +1,99 @@
+.product_card {
+  max-width: 250px;
+  overflow: hidden;
+  height: 470px;
+  box-shadow: 0 0 15px #ddd;
+  position: relative;
+}
+
+/* .product_card img {
+  width: 100%;
+  height: 180px;
+  display: block;
+  object-fit: cover;
+}
+
+.product-box h2 {
+  width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: capitalize;
+  cursor: pointer;
+  color: #323232;
+}
+
+.product-box span {
+  color: crimson;
+}
+
+.product-box h6 {
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.product-box p {
+  width: 80%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  height: 70px;
+  overflow: hidden;
+  color: #323232;
+}
+
+.row-btn {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.row-btn a {
+  width: 50%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: white;
+  padding: 6px;
+}
+
+#btn_buy {
+  background: #555;
+  margin-right: 5px;
+}
+#btn_view {
+  background: teal;
+  margin-left: 5px;
+} */
+
+.CheckBox {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  top: 0;
+}
+
+.favorite__icon:hover {
+  cursor: pointer;
+}
+
+/* hot sale */
+
+.sm-title {
+  padding: 0.6rem 0;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: #ff424e;
+  color: #fff;
+  display: inline-block;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  right: -8%;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  letter-spacing: 2px;
+}

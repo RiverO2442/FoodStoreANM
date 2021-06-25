@@ -1,0 +1,20 @@
+.readmore-btn {
+  color: black;
+  border-radius: 6px;
+  margin: 5px;
+  padding: 5px;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 7px;
+}
+
+.readmore-btn:hover {
+  background-color: #3232ff;
+  color: #fff;
+}
+
+.readmore-btn.text-less:hover {
+  background-color: crimson;
+  color: #fff;
+}

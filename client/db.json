@@ -1,0 +1,51 @@
+{
+    "quotes":[
+        {
+            "content":"content 1",
+            "author":"author 1",
+            "imageURL":"https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881217/QuoteImages/quote-image9_l0hjtr.jpg"
+        },
+        {
+            
+            "content":"content 2",
+            "author":"author 2",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881217/QuoteImages/quote-image10_serqdg.jpg"
+        },
+        {
+            
+            "content":"content 3",
+            "author":"author 3 ",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881124/QuoteImages/quote-image6_nadgnc.jpg"
+        },
+        {
+            
+            "content":"content 4",
+            "author":"author 4",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881124/QuoteImages/quote-image2_ry1ani.jpg"
+        },
+        {
+            
+            "content":"content 5",
+            "author":"author 5",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881124/QuoteImages/quote-image7_uc5j4e.jpg"
+        },
+        {
+            
+            "content":"content 6",
+            "author":"author 6",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881124/QuoteImages/quote-image8_elsjoz.jpg"
+        },
+        {
+            
+            "content":"content 7",
+            "author":"author 7",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881123/QuoteImages/quote-image4_uuexp1.jpg"
+        },
+        {
+            
+            "content":"content 8",
+            "author":"author 8",
+            "imageURL": "https://res.cloudinary.com/minh-quang-21-kg/image/upload/v1622881123/QuoteImages/quote-image3_c3eckz.jpg"
+        }
+    ]
+}

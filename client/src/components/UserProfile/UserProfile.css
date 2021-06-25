@@ -1,0 +1,172 @@
+.profile_page {
+}
+
+.profile_page .col-left {
+  max-width: 400px;
+  padding: 0px 10px;
+  margin: auto;
+}
+
+.profile_page .col-left .avatar {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  margin: 15px auto;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile_page .col-left img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.profile_page .col-left .avatar span {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #fff8;
+  text-align: center;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  transition: 0.3s ease-in-out;
+}
+
+.profile_page .col-left .avatar:hover span {
+  bottom: -15%;
+}
+
+.profile_page .col-left #file_up {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.profile_page .col-left h2 {
+  text-align: center;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* .profile_page .col-left label {
+  display: block;
+  margin-top: 5px;
+} */
+
+/* .profile_page .col-left input {
+  width: 100%;
+  height: 40px;
+  margin: 5px 0;
+  border: none;
+  outline: none;
+  padding: 0 5px;
+} */
+
+/* .profile_page .col-left button {
+  background: #333;
+  color: #fff;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+  letter-spacing: 1.4px;
+  margin: 10px 0;
+} */
+
+/* Col right */
+.profile_page .col-right {
+  padding: 0 10px;
+  flex: 1;
+}
+
+.profile_page .col-right h2 {
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  color: #333;
+  margin: 10px 0;
+}
+
+/*  Table */
+.customers {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.favorite__list {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.customers td,
+.customers th,
+.favorite__list td,
+.favorite__list th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  min-width: 100px;
+}
+
+.favorite__list td img {
+  height: 50%;
+}
+
+.customers tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.favorite__list tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.customers th,
+.favorite__list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background: #555;
+  color: #fff;
+}
+
+.customers i {
+  cursor: pointer;
+}
+
+.favorite__list i {
+  cursor: pointer;
+}
+
+.customers .fa-check {
+  color: green;
+}
+
+.customers .fa-times {
+  color: red;
+}
+
+.customers .fa-user-edit {
+  padding: 7px;
+  font-size: 14px;
+}
+
+.favorite__list .fa-trash-alt {
+  padding: 7px;
+  font-size: 25px;
+  color: red;
+}
+.customers .fa-trash-alt {
+  padding: 7px;
+  font-size: 14px;
+  margin-left: 5px;
+}

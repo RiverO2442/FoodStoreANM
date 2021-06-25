@@ -1,0 +1,55 @@
+.products {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 0.1fr));
+  margin: 20px 0px;
+}
+
+.both-container {
+  display: flex;
+}
+
+.delete-all {
+  padding-top: 0.5%;
+  text-align: right;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.delete-all h6 {
+  margin-right: 40px;
+  margin-top: 10px;
+}
+
+.delete-all input {
+  height: 25px;
+  width: 25px;
+  transform: translateY(5px);
+  margin: 0px 15px;
+}
+
+.delete-all span {
+  text-transform: uppercase;
+  color: rgb(3, 165, 206);
+  letter-spacing: 1.3px;
+}
+
+.delete-all button {
+  padding: 8px 20px;
+  color: crimson;
+  text-transform: uppercase;
+  background-color: transparent;
+  padding-bottom: 35px;
+  font-size: 16px;
+  border: 1px solid crimson;
+  transition: all 0.3s ease-out;
+}
+
+.delete-all button:hover {
+  transition: all 0.3s ease-out;
+  background: crimson;
+  color: #fff;
+  transition: 250ms;
+}

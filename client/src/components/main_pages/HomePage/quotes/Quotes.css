@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap");
+
+#text {
+  font-family: "Nunito", sans-serif;
+}
+
+#quote-box {
+  width: 40rem;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+#text {
+  font-size: 1.2rem;
+}
+
+#author {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1rem;
+}
+
+#quote-img {
+  display: block;
+  object-fit: cover;
+}
