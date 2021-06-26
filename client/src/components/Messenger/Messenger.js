@@ -1,86 +1,86 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import "./Messenger.css";
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import './Messenger.css';
 
-import { GlobalState } from "../../GlobalState";
+import { GlobalState } from '../../GlobalState';
 
-import Conversation from "./Conversations/Conversation";
-import Message from "./Message/Message";
+import Conversation from './Conversations/Conversation';
+import Message from './Message/Message';
 
-import ChatOnline from "./ChatOnline/ChatOnline";
+import ChatOnline from './ChatOnline/ChatOnline';
 
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 
-import axios from "axios";
+import axios from 'axios';
 
 import {
-  InputAdornment,
+  // InputAdornment,
   makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-  Toolbar,
+  // Table,
+  // TableBody,
+  // TableCell,
+  // TableHead,
+  // TablePagination,
+  // TableRow,
+  // TableSortLabel,
+  // Toolbar,
   Paper,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ChatIcon from "@material-ui/icons/Chat";
-import SendIcon from "@material-ui/icons/Send";
-import Fab from "@material-ui/core/Fab";
+// import AddIcon from "@material-ui/icons/Add";
+import TextField from '@material-ui/core/TextField';
+// import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+// import Typography from "@material-ui/core/Typography";
+import Divider from '@material-ui/core/Divider';
+import ChatIcon from '@material-ui/icons/Chat';
+import SendIcon from '@material-ui/icons/Send';
+import Fab from '@material-ui/core/Fab';
 const Messenger = () => {
   const useStyles = makeStyles((theme) => ({
     table: {
       marginTop: theme.spacing(3),
-      "& thead th": {
-        fontWeight: "600",
+      '& thead th': {
+        fontWeight: '600',
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.light,
       },
-      "& tbody td": {
-        fontWeight: "300",
+      '& tbody td': {
+        fontWeight: '300',
       },
-      "& tbody tr:hover": {
-        backgroundColor: "#fffbf2",
-        cursor: "pointer",
+      '& tbody tr:hover': {
+        backgroundColor: '#fffbf2',
+        cursor: 'pointer',
       },
     },
     searchInput: {
-      width: "75%",
+      width: '75%',
     },
     pageContent: {
       margin: theme.spacing(1),
       padding: theme.spacing(2),
     },
     pageContent2: {
-      minWidth: "30%",
+      minWidth: '30%',
       margin: theme.spacing(1),
       padding: theme.spacing(0),
     },
     pageContent3: {
-      minWidth: "5%",
+      minWidth: '5%',
       margin: theme.spacing(1),
       padding: theme.spacing(2),
     },
     pageContent2: {
-      minWidth: "30%",
+      minWidth: '30%',
       margin: theme.spacing(1),
       padding: theme.spacing(0),
     },
     newButton: {
-      position: "absolute",
-      right: "10px",
-      padding: "20px 20px",
+      position: 'absolute',
+      right: '10px',
+      padding: '20px 20px',
     },
     button: {
-      paddingRight: "10px",
+      paddingRight: '10px',
     },
   }));
   const classes = useStyles();
@@ -99,12 +99,12 @@ const Messenger = () => {
 
   const [messages, setMessages] = useState([]);
 
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState('');
 
   //tìm avatar của người dùng còn lại trong đoạn hội thoại
   const [senderUser, setSenderUser] = useState([]);
 
-  const [anotherUserID, setAnotherUserID] = useState("");
+  const [anotherUserID, setAnotherUserID] = useState('');
 
   // tin nhắn nhận từ socket bên backend server
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -118,8 +118,8 @@ const Messenger = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
-    socket.current.on("getMessage", (data) => {
+    socket.current = io('ws://localhost:8900');
+    socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -136,9 +136,9 @@ const Messenger = () => {
 
   useEffect(() => {
     if (user._id) {
-      socket.current.emit("addUser", user._id);
+      socket.current.emit('addUser', user._id);
     }
-    socket.current.on("getUsers", (usersList) => {
+    socket.current.on('getUsers', (usersList) => {
       let userIds = [];
       usersList.map((u) => {
         const temp = u.userId;
@@ -157,7 +157,7 @@ const Messenger = () => {
         });
         setConversations(res.data);
       } else {
-        const res = await axios.get("/api/allConversation", {
+        const res = await axios.get('/api/allConversation', {
           headers: { Authorization: token },
         });
         setConversations(res.data);
@@ -172,7 +172,7 @@ const Messenger = () => {
         `/api/findMessages/${currentConversation._id}`,
         {
           headers: { Authorization: token },
-        }
+        },
       );
       setMessages(res.data);
     };
@@ -185,7 +185,7 @@ const Messenger = () => {
     const getUserById = async () => {
       if (currentConversation) {
         setAnotherUserID(
-          currentConversation.members.find((member) => member !== user._id)
+          currentConversation.members.find((member) => member !== user._id),
         );
       }
       try {
@@ -211,21 +211,21 @@ const Messenger = () => {
     };
 
     const receiverId = currentConversation.members.find(
-      (member) => member !== user._id
+      (member) => member !== user._id,
     );
 
-    socket.current.emit("sendMessage", {
+    socket.current.emit('sendMessage', {
       senderId: user._id,
       receiverId,
       text: newMessage,
     });
 
     try {
-      const res = await axios.post("/api/newMessage", message, {
+      const res = await axios.post('/api/newMessage', message, {
         headers: { Authorization: token },
       });
       setMessages([...messages, res.data]);
-      setNewMessage("");
+      setNewMessage('');
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -233,8 +233,8 @@ const Messenger = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
+      behavior: 'smooth',
+      block: 'nearest',
     });
   }, [messages]);
 
@@ -245,10 +245,10 @@ const Messenger = () => {
           <Paper className={classes.pageContent2}>
             <Paper
               style={{
-                width: "100%",
-                backgroundColor: "#f5f5f5",
-                height: "10%",
-                alignContent: "center",
+                width: '100%',
+                backgroundColor: '#f5f5f5',
+                height: '10%',
+                alignContent: 'center',
               }}
             >
               <Button
@@ -256,7 +256,7 @@ const Messenger = () => {
                 color="primary"
                 startIcon={<ChatIcon />}
                 fullWidth
-                style={{ height: "100%", fontSize: "large" }}
+                style={{ height: '100%', fontSize: 'large' }}
               >
                 Contact
               </Button>
@@ -280,7 +280,7 @@ const Messenger = () => {
               </div>
             </div>
           </Paper>
-          <Paper className={classes.pageContent3} style={{ width: "50%" }}>
+          <Paper className={classes.pageContent3} style={{ width: '50%' }}>
             <div className="chatBox">
               <div className="chatBoxWrapper">
                 {currentConversation ? (
@@ -297,7 +297,7 @@ const Messenger = () => {
                         </div>
                       ))}
                     </div>
-                    <Divider style={{ margin: "1rem 0 1rem 0" }} />
+                    <Divider style={{ margin: '1rem 0 1rem 0' }} />
                     <div className="chatBoxBottom">
                       <TextField
                         onChange={(event) => setNewMessage(event.target.value)}
@@ -308,7 +308,7 @@ const Messenger = () => {
                         fullWidth
                       />
                       <Fab
-                        style={{ margin: "1%" }}
+                        style={{ margin: '1%' }}
                         onClick={handleSubmitMessage}
                         color="primary"
                         aria-label="add"
@@ -337,7 +337,7 @@ const Messenger = () => {
               color="primary"
               startIcon={<ChatIcon />}
               fullWidth
-              style={{ height: "10%", fontSize: "large" }}
+              style={{ height: '10%', fontSize: 'large' }}
             >
               Online
             </Button>

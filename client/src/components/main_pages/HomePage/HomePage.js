@@ -1,26 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
-
-import HeroSection from "./hero_sections/HeroSection";
-import Cards from "./card_items/Cards";
-
-import Grid_cards from "./Grid_cards/Grid-cards";
-
-import PopUp from "../discounts/Controls/PopUp";
-
-import Quotes from "./quotes/Quotes";
-
-import Testimonials from "./Testimonials";
-
-import Stats from "./Stats";
-
-import { GlobalState } from "../../../GlobalState";
-
-import axios from "axios";
-
-import { motion } from "framer-motion";
+import axios from 'axios';
+import { motion } from 'framer-motion';
+import React, { useContext, useEffect } from 'react';
+import { GlobalState } from '../../../GlobalState';
+import Cards from './card_items/Cards';
+import GRID_CARDS from './Grid_cards/Grid-cards';
+import HeroSection from './hero_sections/HeroSection';
+import Stats from './Stats';
+import Testimonials from './Testimonials';
 
 const HomePage = () => {
-  const [openPopUp, setOpenPopUp] = useState(true);
+  // const [openPopUp, setOpenPopUp] = useState(true);
 
   const state = useContext(GlobalState);
   const [token] = state.token;
@@ -34,10 +23,10 @@ const HomePage = () => {
       if (!isAdmin) {
         const newConversation = {
           senderID: user._id,
-          receiverID: "60866ea90567e02b1422693f", // admin nhận
+          receiverID: '60866ea90567e02b1422693f', // admin nhận
         };
 
-        await axios.post("/api/newConversation", newConversation, {
+        await axios.post('/api/newConversation', newConversation, {
           headers: { Authorization: token },
         });
       }
@@ -55,7 +44,7 @@ const HomePage = () => {
         <Quotes></Quotes>
       </PopUp> */}
       <HeroSection></HeroSection>
-      <Grid_cards></Grid_cards>
+      <GRID_CARDS></GRID_CARDS>
       <Cards></Cards>
       <Testimonials></Testimonials>
       <Stats></Stats>

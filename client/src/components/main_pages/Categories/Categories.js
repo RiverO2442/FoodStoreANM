@@ -1,16 +1,7 @@
-import React, { useState, useContext } from "react";
-import { GlobalState } from "../../../GlobalState";
-import "./Categories.css";
-import axios from "axios";
-import swal from "sweetalert";
-
-import { motion } from "framer-motion";
-
-import Input from "../discounts/Controls/Input";
-import Typography from "@material-ui/core/Typography";
 import {
   InputAdornment,
   makeStyles,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -19,81 +10,84 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Paper,
-} from "@material-ui/core";
-
-import { Search } from "@material-ui/icons";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import Button from "@material-ui/core/Button";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import ArchiveIcon from "@material-ui/icons/Archive";
-import NoteAddIcon from "@material-ui/icons/NoteAdd";
+} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { Search } from '@material-ui/icons';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import axios from 'axios';
+import { motion } from 'framer-motion';
+import React, { useContext, useState } from 'react';
+import swal from 'sweetalert';
+import { GlobalState } from '../../../GlobalState';
+import Input from '../discounts/Controls/Input';
+import './Categories.css';
 
 const Categories = () => {
   const useStyles = makeStyles((theme) => ({
     table: {
       marginTop: theme.spacing(3),
-      "& thead th": {
-        fontWeight: "600",
+      '& thead th': {
+        fontWeight: '600',
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.light,
       },
-      "& tbody td": {
-        fontWeight: "300",
+      '& tbody td': {
+        fontWeight: '300',
       },
-      "& tbody tr:hover": {
-        backgroundColor: "#fffbf2",
-        cursor: "pointer",
+      '& tbody tr:hover': {
+        backgroundColor: '#fffbf2',
+        cursor: 'pointer',
       },
     },
     button: {
       margin: theme.spacing(0),
     },
     searchInput: {
-      width: "75%",
+      width: '75%',
     },
     pageContent: {
       margin: theme.spacing(5),
       padding: theme.spacing(3),
     },
     newButton: {
-      position: "absolute",
-      right: "10px",
-      padding: "20px 20px",
+      position: 'absolute',
+      right: '10px',
+      padding: '20px 20px',
     },
   }));
   const classes = useStyles();
-  const [openPopUp, setOpenPopUp] = useState(false);
+  // const [openPopUp, setOpenPopUp] = useState(false);
 
   //Notification
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: "",
-    type: "",
-  });
+  // const [notify, setNotify] = useState({
+  //   isOpen: false,
+  //   message: '',
+  //   type: '',
+  // });
 
   //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-  });
+  // const [confirmDialog, setConfirmDialog] = useState({
+  //   isOpen: false,
+  //   title: '',
+  //   subTitle: '',
+  // });
 
   const headCells = [
     {
-      id: "index",
-      label: "Index",
+      id: 'index',
+      label: 'Index',
       disableSorting: true,
     },
     {
-      id: "name",
-      label: "Category Name",
+      id: 'name',
+      label: 'Category Name',
     },
     {
-      id: "actions",
-      label: "Action",
+      id: 'actions',
+      label: 'Action',
       disableSorting: true,
     },
   ];
@@ -128,7 +122,7 @@ const Categories = () => {
   }
 
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
@@ -137,10 +131,10 @@ const Categories = () => {
     let target = event.target;
     setFilterFunc({
       func: (categories) => {
-        if (target.value === "") return categories;
+        if (target.value === '') return categories;
         else
           return categories.filter((category) =>
-            category.name.toLowerCase().includes(target.value.toLowerCase())
+            category.name.toLowerCase().includes(target.value.toLowerCase()),
           );
       },
     });
@@ -149,23 +143,23 @@ const Categories = () => {
   const recordsAfterPagingAndSorting = () => {
     return tableSort(
       filterFunc.func(categories),
-      getComparator(order, orderBy)
+      getComparator(order, orderBy),
     ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   const handleSortLabel = (cellID) => {
-    const isAsc = orderBy === cellID && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === cellID && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(cellID);
   };
 
-  const [pages, setPages] = useState([5, 10, 25]);
+  const [pages] = useState([5, 10, 25]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [order, setOrder] = useState("");
-  const [orderBy, setOrderBy] = useState("");
+  const [order, setOrder] = useState('');
+  const [orderBy, setOrderBy] = useState('');
   const [filterFunc, setFilterFunc] = useState({
     func: (allUsers) => {
       return allUsers;
@@ -175,12 +169,12 @@ const Categories = () => {
 
   //////////////////////////////
   const state = useContext(GlobalState);
-  const [categories, setCategories] = state.categoriesAPI.categories;
+  const [categories] = state.categoriesAPI.categories;
   const [token] = state.token;
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [callback, setCallback] = state.categoriesAPI.callback;
   const [onEdit, setOnEdit] = useState(false);
-  const [id, setID] = useState("");
+  const [id, setID] = useState('');
 
   const createCategory = async (event) => {
     event.preventDefault();
@@ -191,31 +185,31 @@ const Categories = () => {
           { name: category },
           {
             headers: { Authorization: token },
-          }
+          },
         );
         swal({
-          title: "Info !",
+          title: 'Info !',
           text: res.data.msg,
-          icon: "success",
-          confirmButtonText: "Yes",
+          icon: 'success',
+          confirmButtonText: 'Yes',
         });
       } else {
         const res = await axios.post(
-          "/api/category",
+          '/api/category',
           { name: category },
           {
             headers: { Authorization: token },
-          }
+          },
         );
         swal({
-          title: "Info !",
+          title: 'Info !',
           text: res.data,
-          icon: "success",
-          confirmButtonText: "Yes",
+          icon: 'success',
+          confirmButtonText: 'Yes',
         });
       }
       setOnEdit(false);
-      setCategory("");
+      setCategory('');
       setCallback(!callback);
     } catch (error) {
       alert(error.response.data.msg);
@@ -234,10 +228,10 @@ const Categories = () => {
         headers: { Authorization: token },
       });
       swal({
-        title: "Info !",
+        title: 'Info !',
         text: res.data.msg,
-        icon: "success",
-        confirmButtonText: "Yes",
+        icon: 'success',
+        confirmButtonText: 'Yes',
       });
       setCallback(!callback);
     } catch (error) {
@@ -255,7 +249,7 @@ const Categories = () => {
         <Paper className={classes.pageContent}>
           <Toolbar>
             <Input
-              style={{ width: "40%" }}
+              style={{ width: '40%' }}
               onChange={handleSearch}
               label="Search Category"
               className={classes.searchInput}
@@ -268,9 +262,9 @@ const Categories = () => {
               }}
             ></Input>
             <Input
-              label={onEdit ? "Category" : "New Category"}
+              label={onEdit ? 'Category' : 'New Category'}
               InputLabelProps={{ shrink: true }}
-              style={{ width: "30%", margin: "0px 1rem 0rem 20rem" }}
+              style={{ width: '30%', margin: '0px 1rem 0rem 20rem' }}
               type="text"
               name="category"
               value={category}
@@ -284,13 +278,13 @@ const Categories = () => {
               color="primary"
               onClick={createCategory}
             >
-              {onEdit ? "Update" : "Create"}
+              {onEdit ? 'Update' : 'Create'}
             </Button>
           </Toolbar>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell style={{ color: "white" }} colSpan={7}>
+                <TableCell style={{ color: 'white' }} colSpan={7}>
                   Category Table
                 </TableCell>
               </TableRow>
@@ -298,17 +292,17 @@ const Categories = () => {
                 {headCells.map((headCell) => (
                   <TableCell
                     align="center"
-                    colSpan={headCell.id == "actions" ? "2" : "1"}
+                    colSpan={headCell.id === 'actions' ? '2' : '1'}
                     key={headCell.id}
                     sortDirection={orderBy === headCell.id ? order : false}
-                    style={{ color: "#eee" }}
+                    style={{ color: '#eee' }}
                   >
                     {headCell.disableSorting ? (
                       headCell.label
                     ) : (
                       <TableSortLabel
                         active={orderBy === headCell.id}
-                        direction={orderBy === headCell.id ? order : "asc"}
+                        direction={orderBy === headCell.id ? order : 'asc'}
                         onClick={() => {
                           handleSortLabel(headCell.id);
                         }}
@@ -326,7 +320,7 @@ const Categories = () => {
                   <TableCell align="center">{index + 1}</TableCell>
                   <TableCell align="center">{category.name}</TableCell>
                   <TableCell
-                    style={{ width: "10%", borderRightColor: "white" }}
+                    style={{ width: '10%', borderRightColor: 'white' }}
                     align="center"
                   >
                     <Button
@@ -336,14 +330,14 @@ const Categories = () => {
                       startIcon={
                         <EditOutlinedIcon
                           style={{
-                            marginLeft: "10px",
+                            marginLeft: '10px',
                           }}
                         />
                       }
                       onClick={() => editCategory(category._id, category.name)}
                     ></Button>
                   </TableCell>
-                  <TableCell style={{ width: "10%" }} align="center">
+                  <TableCell style={{ width: '10%' }} align="center">
                     <Button
                       variant="contained"
                       color="secondary"
@@ -351,7 +345,7 @@ const Categories = () => {
                       startIcon={
                         <DeleteOutlinedIcon
                           style={{
-                            marginLeft: "10px",
+                            marginLeft: '10px',
                           }}
                         />
                       }

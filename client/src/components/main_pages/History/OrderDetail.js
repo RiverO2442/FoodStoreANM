@@ -1,15 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { GlobalState } from "../../../GlobalState";
-import "./OrderDetail.css";
-
-import { motion } from "framer-motion";
-
-import Input from "../discounts/Controls/Input";
-import Typography from "@material-ui/core/Typography";
 import {
-  InputAdornment,
   makeStyles,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -17,109 +8,107 @@ import {
   TablePagination,
   TableRow,
   TableSortLabel,
-  Toolbar,
-  Paper,
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { Search } from "@material-ui/icons";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import PageviewOutlinedIcon from "@material-ui/icons/PageviewOutlined";
+} from '@material-ui/core';
+import { motion } from 'framer-motion';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { GlobalState } from '../../../GlobalState';
+import './OrderDetail.css';
 
 const OrderDetail = () => {
   const useStyles = makeStyles((theme) => ({
     table: {
       marginTop: theme.spacing(3),
-      "& thead th": {
-        fontWeight: "600",
+      '& thead th': {
+        fontWeight: '600',
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.light,
       },
-      "& tbody td": {
-        fontWeight: "300",
+      '& tbody td': {
+        fontWeight: '300',
       },
-      "& tbody tr:hover": {
-        backgroundColor: "#fffbf2",
-        cursor: "pointer",
+      '& tbody tr:hover': {
+        backgroundColor: '#fffbf2',
+        cursor: 'pointer',
       },
     },
     searchInput: {
-      width: "75%",
+      width: '75%',
     },
     pageContent: {
       margin: theme.spacing(5),
       padding: theme.spacing(3),
     },
     newButton: {
-      position: "absolute",
-      right: "10px",
-      padding: "20px 20px",
+      position: 'absolute',
+      right: '10px',
+      padding: '20px 20px',
     },
   }));
-  const [openPopUp, setOpenPopUp] = useState(false);
+  // const [setOpenPopUp] = useState(false);
 
   //Notification
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: "",
-    type: "",
-  });
+  // const [notify, setNotify] = useState({
+  //   isOpen: false,
+  //   message: '',
+  //   type: '',
+  // });
 
   //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-  });
+  // const [confirmDialog, setConfirmDialog] = useState({
+  //   isOpen: false,
+  //   title: '',
+  //   subTitle: '',
+  // });
 
   const addressHeadCells = [
     {
-      id: "name",
-      label: "Name",
+      id: 'name',
+      label: 'Name',
       disableSorting: true,
     },
     {
-      id: "address",
-      label: "Address",
+      id: 'address',
+      label: 'Address',
       disableSorting: true,
     },
     {
-      id: "postalcode",
-      label: "Postal Code",
+      id: 'postalcode',
+      label: 'Postal Code',
       disableSorting: true,
     },
     {
-      id: "countrycode",
-      label: "Country Code",
+      id: 'countrycode',
+      label: 'Country Code',
       disableSorting: true,
     },
   ];
   const productHeadCells = [
     {
-      id: "index",
-      label: "Index",
+      id: 'index',
+      label: 'Index',
       disableSorting: true,
     },
     {
-      id: "title",
-      label: "Title",
+      id: 'title',
+      label: 'Title',
     },
     {
-      id: "image",
-      label: "Image",
+      id: 'image',
+      label: 'Image',
       disableSorting: true,
     },
     {
-      id: "quantity",
-      label: "Quantity",
+      id: 'quantity',
+      label: 'Quantity',
     },
     {
-      id: "postalcode",
-      label: "Price",
+      id: 'postalcode',
+      label: 'Price',
     },
     {
-      id: "countrycode",
-      label: "Total",
+      id: 'countrycode',
+      label: 'Total',
     },
   ];
 
@@ -153,45 +142,47 @@ const OrderDetail = () => {
   }
 
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
 
-  const handleSearch = (event) => {
-    let target = event.target;
-    setFilterFunc({
-      func: (history) => {
-        if (target.value === "") return history;
-        else
-          return history.filter((payment) =>
-            payment.paymentID.toLowerCase().includes(target.value.toLowerCase())
-          );
-      },
-    });
-  };
+  // const handleSearch = (event) => {
+  //   let target = event.target;
+  //   setFilterFunc({
+  //     func: (history) => {
+  //       if (target.value === '') return history;
+  //       else
+  //         return history.filter((payment) =>
+  //           payment.paymentID
+  //             .toLowerCase()
+  //             .includes(target.value.toLowerCase()),
+  //         );
+  //     },
+  //   });
+  // };
 
   const recordsAfterPagingAndSorting = () => {
     return tableSort(
       filterFunc.func(orderDetail.cart),
-      getComparator(order, orderBy)
+      getComparator(order, orderBy),
     ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   const handleSortLabel = (cellID) => {
-    const isAsc = orderBy === cellID && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === cellID && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(cellID);
   };
 
-  const [pages, setPages] = useState([5, 10, 25]);
+  const [pages] = useState([5, 10, 25]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [order, setOrder] = useState("");
-  const [orderBy, setOrderBy] = useState("");
-  const [filterFunc, setFilterFunc] = useState({
+  const [order, setOrder] = useState('');
+  const [orderBy, setOrderBy] = useState('');
+  const [filterFunc] = useState({
     func: (allUsers) => {
       return allUsers;
     },
@@ -227,7 +218,7 @@ const OrderDetail = () => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell style={{ color: "white" }} colSpan={7}>
+              <TableCell style={{ color: 'white' }} colSpan={7}>
                 Shipment Detail
               </TableCell>
             </TableRow>
@@ -237,14 +228,14 @@ const OrderDetail = () => {
                   align="center"
                   key={headCell.id}
                   sortDirection={orderBy === headCell.id ? order : false}
-                  style={{ color: "#eee" }}
+                  style={{ color: '#eee' }}
                 >
                   {headCell.disableSorting ? (
                     headCell.label
                   ) : (
                     <TableSortLabel
                       active={orderBy === headCell.id}
-                      direction={orderBy === headCell.id ? order : "asc"}
+                      direction={orderBy === headCell.id ? order : 'asc'}
                       onClick={() => {
                         handleSortLabel(headCell.id);
                       }}
@@ -262,14 +253,14 @@ const OrderDetail = () => {
                 {orderDetail.address.recipient_name}
               </TableCell>
               <TableCell align="center">
-                {orderDetail.address.line1 + " - " + orderDetail.address.city}
+                {orderDetail.address.line1 + ' - ' + orderDetail.address.city}
               </TableCell>
               <TableCell align="center">
-                {" "}
+                {' '}
                 {orderDetail.address.postal_code}
               </TableCell>
               <TableCell align="center">
-                {" "}
+                {' '}
                 {orderDetail.address.country_code}
               </TableCell>
             </TableRow>
@@ -278,7 +269,7 @@ const OrderDetail = () => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell style={{ color: "white" }} colSpan={7}>
+              <TableCell style={{ color: 'white' }} colSpan={7}>
                 Payment Table
               </TableCell>
             </TableRow>
@@ -288,14 +279,14 @@ const OrderDetail = () => {
                   align="center"
                   key={headCell.id}
                   sortDirection={orderBy === headCell.id ? order : false}
-                  style={{ color: "#eee" }}
+                  style={{ color: '#eee' }}
                 >
                   {productHeadCells.disableSorting ? (
                     headCell.label
                   ) : (
                     <TableSortLabel
                       active={orderBy === headCell.id}
-                      direction={orderBy === headCell.id ? order : "asc"}
+                      direction={orderBy === headCell.id ? order : 'asc'}
                       onClick={() => {
                         handleSortLabel(headCell.id);
                       }}
@@ -313,7 +304,7 @@ const OrderDetail = () => {
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">{product.title}</TableCell>
                 <TableCell>
-                  <img src={product.image.url} alt="Product Image"></img>
+                  <img src={product.image.url} alt="Product"></img>
                 </TableCell>
                 <TableCell align="center">{product.quantity}</TableCell>
                 <TableCell align="center">{product.price}</TableCell>

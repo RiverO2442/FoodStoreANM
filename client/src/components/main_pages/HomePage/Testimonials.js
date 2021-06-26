@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
-import { FaRegLightbulb } from "react-icons/fa";
+import { FaRegLightbulb } from 'react-icons/fa';
 
-import testimonialImg1 from "../../../images/testimonial-1.jpg";
+import testimonialImg1 from '../../../images/testimonial-1.jpg';
 
-import testimonialImg2 from "../../../images/testimonial-2.jpg";
+import testimonialImg2 from '../../../images/testimonial-2.jpg';
 
-import Aos from "aos";
-import "aos/dist/aos.css";
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const Testimonials = () => {
-  const testimonialImages = useState([testimonialImg1, testimonialImg2]);
+  // const testimonialImages = useState([testimonialImg1, testimonialImg2]);
   useEffect(() => {
     Aos.init({ duration: 800, offset: 400 });
   }, []);
@@ -31,13 +31,13 @@ const Testimonials = () => {
             <Testimonial>
               <IoMdCheckmarkCircleOutline
                 style={{
-                  color: "#3fffa8",
-                  fontSize: "2rem",
-                  marginBottom: "1rem",
+                  color: '#3fffa8',
+                  fontSize: '2rem',
+                  marginBottom: '1rem',
                 }}
               ></IoMdCheckmarkCircleOutline>
               <h3>Sean Michaels</h3>
-              <p style={{ fontWeight: 500, fontSize: "15px" }}>
+              <p style={{ fontWeight: 500, fontSize: '15px' }}>
                 "The greatest experience of my life! It was so pleased and they
                 made it super easy to place my order."
               </p>
@@ -47,13 +47,13 @@ const Testimonials = () => {
             <Testimonial>
               <FaRegLightbulb
                 style={{
-                  color: "#f9b19b",
-                  fontSize: "2rem",
-                  marginBottom: "1rem",
+                  color: '#f9b19b',
+                  fontSize: '2rem',
+                  marginBottom: '1rem',
                 }}
               ></FaRegLightbulb>
               <h3>Sarah Kin</h3>
-              <p style={{ fontWeight: 500, fontSize: "15px" }}>
+              <p style={{ fontWeight: 500, fontSize: '15px' }}>
                 "It was so easy to set up my menu! They answered all my
                 questions right away and give me the best price out of all the
                 store that I researched."

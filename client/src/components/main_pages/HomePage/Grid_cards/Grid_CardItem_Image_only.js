@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Grid_CardItem = ({ src, text, label, path, isImage, onClick, id }) => {
   return (
@@ -11,9 +11,9 @@ const Grid_CardItem = ({ src, text, label, path, isImage, onClick, id }) => {
             data-category={label}
           >
             <img
-              style={{ display: "block", width: "100%", height: "auto" }}
+              style={{ display: 'block', width: '100%', height: 'auto' }}
               className="grid_cards_image_only__item__img"
-              alt="Travel Image"
+              alt="Travel"
               src={src}
             />
           </figure>
