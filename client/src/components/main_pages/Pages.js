@@ -1,36 +1,39 @@
-import React, { useContext } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Products from './products/Products';
-import Login from './authentication/Login';
-import Register from './authentication/Register';
-import Cart from './cart/Cart';
-import Checkout from './cart/checkout/Checkout';
-import ThankYou from './cart/checkout/Thankyou';
-import OrderHistory from './History/OrderHistory';
-import OrderDetail from './History/OrderDetail';
-import NotFound from './Utils/Not_found/NotFound';
-import ProductDetail from './ProductDetail/ProductDetail';
-import { GlobalState } from '../../GlobalState';
-import Categories from './Categories/Categories';
-import CreateProduct from './createProduct/CreateProduct';
-import HomePage from './HomePage/HomePage';
-import ActivationEmail from './authentication/ActivationEmail';
-import ForgotPassword from './authentication/ForgotPassword';
 
-import ResetPassword from './authentication/ResetPassword';
+import React, { useContext } from "react";
+import { Switch, Route } from "react-router-dom";
+import Products from "./products/Products";
+import Login from "./authentication/Login";
+import Register from "./authentication/Register";
+import Cart from "./cart/Cart";
+import Checkout from "./cart/checkout/Checkout";
+import ThankYou from "./cart/checkout/Thankyou";
 
-import UserProfile from '../UserProfile/UserProfile';
+import NotFound from "./Utils/Not_found/NotFound";
+import ProductDetail from "./ProductDetail/ProductDetail";
+import { GlobalState } from "../../GlobalState";
 
-import EditUser from '../UserProfile/EditUser';
+import ActivationEmail from "./authentication/ActivationEmail";
+import ForgotPassword from "./authentication/ForgotPassword";
 
-import Discounts from './discounts/Discounts';
+import ResetPassword from "./authentication/ResetPassword";
 
-// import aboutus from "./about us/AboutUs";
+import UserProfile from "../UserProfile/UserProfile";
 
-import Messenger from '../Messenger/Messenger';
+import EditUser from "../UserProfile/EditUser";
 
-import { AnimatePresence } from 'framer-motion';
-import AboutUs from './about us/AboutUs';
+import { AnimatePresence } from "framer-motion";
+
+
+import Messenger from "../Messenger/Messenger";
+
+// import AboutUs from "./about us/AboutUs";
+// import Discounts from "./discounts/Discounts";
+// import Categories from "./Categories/Categories";
+// import CreateProduct from "./createProduct/CreateProduct";
+// import HomePage from "./HomePage/HomePage";
+// import OrderHistory from "./History/OrderHistory";
+// import OrderDetail from "./History/OrderDetail";
+
 
 const Pages = () => {
   const state = useContext(GlobalState);
@@ -80,12 +83,12 @@ const Pages = () => {
             exact
             component={isLogged ? UserProfile : NotFound}
           ></Route>
-
+{/* 
           <Route
             path="/aboutus"
             exact
             component={isLogged ? AboutUs : NotFound}
-          ></Route>
+          ></Route> */}
 
           <Route
             path="/edit_user/:id"
@@ -103,7 +106,7 @@ const Pages = () => {
 
           <Route path="/ThankYou" exact component={ThankYou}></Route>
 
-          <Route
+          {/* <Route
             path="/history"
             exact
             component={isLogged ? OrderHistory : NotFound}
@@ -137,7 +140,7 @@ const Pages = () => {
             path="/discount"
             exact
             component={isAdmin ? Discounts : NotFound}
-          ></Route>
+          ></Route> */}
 
           <Route path="*" exact component={NotFound}></Route>
         </Switch>
