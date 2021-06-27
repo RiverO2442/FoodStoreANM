@@ -1,15 +1,14 @@
-import Button from "../../../headers/Button";
-import "./HeroSection.css";
-import intro_video from "../../../../video/intro-video.mp4";
-import React, { useState, useContext, useEffect } from "react";
-import { GlobalState } from "../../../../GlobalState";
+import React, { useContext } from 'react';
+import { GlobalState } from '../../../../GlobalState';
+import Button from '../../../headers/Button';
+import './HeroSection.css';
 const HeroSection = () => {
   const state = useContext(GlobalState);
-  const [isLogged, setIsLogged] = state.userAPI.isLogged;
+  const [isLogged] = state.userAPI.isLogged;
   return (
     <>
       <div className="hero-container">
-        <video src={intro_video} autoPlay loop muted />
+        {/* <video src={intro_video} autoPlay loop muted /> */}
         <h1>FOOD HEAVEN</h1>
         <p>What are you waiting for?</p>
         <div className="hero-btns">

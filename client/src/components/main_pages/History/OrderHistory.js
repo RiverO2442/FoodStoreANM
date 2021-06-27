@@ -1,16 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GlobalState } from "../../../GlobalState";
-import { Link } from "react-router-dom";
-import "./OrderHistory.css";
-import axios from "axios";
-
-import { motion } from "framer-motion";
-
-import Input from "../discounts/Controls/Input";
-import Typography from "@material-ui/core/Typography";
 import {
   InputAdornment,
   makeStyles,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -19,77 +10,80 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Paper,
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { Search } from "@material-ui/icons";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import PageviewOutlinedIcon from "@material-ui/icons/PageviewOutlined";
+} from '@material-ui/core';
+import { Search } from '@material-ui/icons';
+import PageviewOutlinedIcon from '@material-ui/icons/PageviewOutlined';
+import axios from 'axios';
+import { motion } from 'framer-motion';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { GlobalState } from '../../../GlobalState';
+import Input from '../discounts/Controls/Input';
+import './OrderHistory.css';
 
 const OrderHistory = () => {
   const useStyles = makeStyles((theme) => ({
     table: {
       marginTop: theme.spacing(3),
-      "& thead th": {
-        fontWeight: "600",
+      '& thead th': {
+        fontWeight: '600',
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.light,
       },
-      "& tbody td": {
-        fontWeight: "300",
+      '& tbody td': {
+        fontWeight: '300',
       },
-      "& tbody tr:hover": {
-        backgroundColor: "#fffbf2",
-        cursor: "pointer",
+      '& tbody tr:hover': {
+        backgroundColor: '#fffbf2',
+        cursor: 'pointer',
       },
     },
     searchInput: {
-      width: "75%",
+      width: '75%',
     },
     pageContent: {
       margin: theme.spacing(5),
       padding: theme.spacing(3),
     },
     newButton: {
-      position: "absolute",
-      right: "10px",
-      padding: "20px 20px",
+      position: 'absolute',
+      right: '10px',
+      padding: '20px 20px',
     },
   }));
-  const [openPopUp, setOpenPopUp] = useState(false);
+  // const [openPopUp, setOpenPopUp] = useState(false);
 
   //Notification
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: "",
-    type: "",
-  });
+  // const [notify, setNotify] = useState({
+  //   isOpen: false,
+  //   message: '',
+  //   type: '',
+  // });
 
   //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-  });
+  // const [confirmDialog, setConfirmDialog] = useState({
+  //   isOpen: false,
+  //   title: '',
+  //   subTitle: '',
+  // });
 
   const headCells = [
     {
-      id: "index",
-      label: "Index",
+      id: 'index',
+      label: 'Index',
       disableSorting: true,
     },
     {
-      id: "paymentID",
-      label: "Payment ID",
+      id: 'paymentID',
+      label: 'Payment ID',
     },
     {
-      id: "createdAt",
-      label: "Created Date",
+      id: 'createdAt',
+      label: 'Created Date',
     },
     {
-      id: "actions",
-      label: "Detail",
+      id: 'actions',
+      label: 'Detail',
       colSpan: 4,
       disableSorting: true,
     },
@@ -125,7 +119,7 @@ const OrderHistory = () => {
   }
 
   function getComparator(order, orderBy) {
-    return order === "desc"
+    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
@@ -134,10 +128,12 @@ const OrderHistory = () => {
     let target = event.target;
     setFilterFunc({
       func: (history) => {
-        if (target.value === "") return history;
+        if (target.value === '') return history;
         else
           return history.filter((payment) =>
-            payment.paymentID.toLowerCase().includes(target.value.toLowerCase())
+            payment.paymentID
+              .toLowerCase()
+              .includes(target.value.toLowerCase()),
           );
       },
     });
@@ -146,23 +142,23 @@ const OrderHistory = () => {
   const recordsAfterPagingAndSorting = () => {
     return tableSort(
       filterFunc.func(history),
-      getComparator(order, orderBy)
+      getComparator(order, orderBy),
     ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   const handleSortLabel = (cellID) => {
-    const isAsc = orderBy === cellID && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === cellID && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(cellID);
   };
 
-  const [pages, setPages] = useState([5, 10, 25]);
+  const [pages] = useState([5, 10, 25]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [order, setOrder] = useState("");
-  const [orderBy, setOrderBy] = useState("");
+  const [order, setOrder] = useState('');
+  const [orderBy, setOrderBy] = useState('');
   const [filterFunc, setFilterFunc] = useState({
     func: (allUsers) => {
       return allUsers;
@@ -181,12 +177,12 @@ const OrderHistory = () => {
     if (token) {
       const getHistory = async () => {
         if (isAdmin) {
-          const res = await axios.get("/api/payment", {
+          const res = await axios.get('/api/payment', {
             headers: { Authorization: token },
           });
           setHistory(res.data);
         } else {
-          const res = await axios.get("/user/history", {
+          const res = await axios.get('/user/history', {
             headers: { Authorization: token },
           });
           setHistory(res.data);
@@ -197,9 +193,9 @@ const OrderHistory = () => {
   }, [token, isAdmin, setHistory]);
   if (history.length === 0) {
     return (
-      <div style={{ minHeight: "900px", backgroundColor: "#f9f9f9" }}>
-        {" "}
-        <h1 style={{ paddingTop: "5rem", fontSize: "60px" }}>History Emty</h1>
+      <div style={{ minHeight: '900px', backgroundColor: '#f9f9f9' }}>
+        {' '}
+        <h1 style={{ paddingTop: '5rem', fontSize: '60px' }}>History Emty</h1>
       </div>
     );
   }
@@ -227,7 +223,7 @@ const OrderHistory = () => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell style={{ color: "white" }} colSpan={7}>
+              <TableCell style={{ color: 'white' }} colSpan={7}>
                 Payment Table
               </TableCell>
             </TableRow>
@@ -237,14 +233,14 @@ const OrderHistory = () => {
                   align="center"
                   key={headCell.id}
                   sortDirection={orderBy === headCell.id ? order : false}
-                  style={{ color: "#eee" }}
+                  style={{ color: '#eee' }}
                 >
                   {headCell.disableSorting ? (
                     headCell.label
                   ) : (
                     <TableSortLabel
                       active={orderBy === headCell.id}
-                      direction={orderBy === headCell.id ? order : "asc"}
+                      direction={orderBy === headCell.id ? order : 'asc'}
                       onClick={() => {
                         handleSortLabel(headCell.id);
                       }}

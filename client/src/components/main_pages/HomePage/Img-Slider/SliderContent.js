@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { SliderData } from "./SliderData";
+import { SliderData } from './SliderData';
 
 const SliderContent = ({ activeIndex }) => {
   return (
@@ -9,7 +9,7 @@ const SliderContent = ({ activeIndex }) => {
         {SliderData.map((slide, index) => (
           <div
             key={index}
-            className={index === activeIndex ? "slide active" : "slide"}
+            className={index === activeIndex ? 'slide active' : 'slide'}
           >
             <img
               className="slide-image"

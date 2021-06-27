@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const CategoriesAPI = () => {
   const [categories, setCategories] = useState([]);
@@ -7,7 +7,7 @@ const CategoriesAPI = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("/api/category");
+      const res = await axios.get('/api/category');
       setCategories(res.data);
     };
     getCategories();
