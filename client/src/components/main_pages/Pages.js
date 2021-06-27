@@ -6,14 +6,11 @@ import Register from "./authentication/Register";
 import Cart from "./cart/Cart";
 import Checkout from "./cart/checkout/Checkout";
 import ThankYou from "./cart/checkout/Thankyou";
-import OrderHistory from "./History/OrderHistory";
-import OrderDetail from "./History/OrderDetail";
+
 import NotFound from "./Utils/Not_found/NotFound";
 import ProductDetail from "./ProductDetail/ProductDetail";
 import { GlobalState } from "../../GlobalState";
-import Categories from "./Categories/Categories";
-import CreateProduct from "./createProduct/CreateProduct";
-import HomePage from "./HomePage/HomePage";
+
 import ActivationEmail from "./authentication/ActivationEmail";
 import ForgotPassword from "./authentication/ForgotPassword";
 
@@ -23,14 +20,18 @@ import UserProfile from "../UserProfile/UserProfile";
 
 import EditUser from "../UserProfile/EditUser";
 
-import Discounts from "./discounts/Discounts";
+import { AnimatePresence } from "framer-motion";
 
-import aboutus from "./about us/AboutUs";
 
 import Messenger from "../Messenger/Messenger";
 
-import { AnimatePresence } from "framer-motion";
-import AboutUs from "./about us/AboutUs";
+// import AboutUs from "./about us/AboutUs";
+// import Discounts from "./discounts/Discounts";
+// import Categories from "./Categories/Categories";
+// import CreateProduct from "./createProduct/CreateProduct";
+// import HomePage from "./HomePage/HomePage";
+// import OrderHistory from "./History/OrderHistory";
+// import OrderDetail from "./History/OrderDetail";
 
 const Pages = () => {
   const state = useContext(GlobalState);
@@ -80,12 +81,12 @@ const Pages = () => {
             exact
             component={isLogged ? UserProfile : NotFound}
           ></Route>
-
+{/* 
           <Route
             path="/aboutus"
             exact
             component={isLogged ? AboutUs : NotFound}
-          ></Route>
+          ></Route> */}
 
           <Route
             path="/edit_user/:id"
@@ -103,7 +104,7 @@ const Pages = () => {
 
           <Route path="/ThankYou" exact component={ThankYou}></Route>
 
-          <Route
+          {/* <Route
             path="/history"
             exact
             component={isLogged ? OrderHistory : NotFound}
@@ -137,7 +138,7 @@ const Pages = () => {
             path="/discount"
             exact
             component={isAdmin ? Discounts : NotFound}
-          ></Route>
+          ></Route> */}
 
           <Route path="*" exact component={NotFound}></Route>
         </Switch>
