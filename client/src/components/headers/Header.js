@@ -1,44 +1,35 @@
-import React, { useState, useContext, useEffect } from "react";
-import { GlobalState } from "../../GlobalState";
+import React, { useState, useContext, useEffect } from 'react';
+import { GlobalState } from '../../GlobalState';
 
-import ShoppingCartIcon from "./icon/shopping-cart.png";
-import { Link, useLocation } from "react-router-dom";
-import "../headers/Header.css";
-import { useSelector } from "react-redux";
-import Web_Logo from "../../website_logo.png";
-import axios from "axios";
-import Button from "./Button";
-import { Grid } from "@material-ui/core";
-import SearchBox from "./SearchBox.js";
-import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import {
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
-import { Paper } from "@material-ui/core";
-import Fab from "@material-ui/core/Fab";
-import ButtonUI from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import FaceIcon from "@material-ui/icons/Face";
+import ShoppingCartIcon from './icon/shopping-cart.png';
+import { Link, useLocation } from 'react-router-dom';
+import '../headers/Header.css';
+import axios from 'axios';
+import Button from './Button';
+import { Grid } from '@material-ui/core';
+import SearchBox from './SearchBox.js';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import { animateScroll as scroll } from 'react-scroll';
+import { Paper } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import ButtonUI from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FaceIcon from '@material-ui/icons/Face';
 const Header = () => {
   const state = useContext(GlobalState);
   const [isLogged, setIsLogged] = state.userAPI.isLogged;
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
 
-  const [user, setUser] = state.userAPI.user;
+  const [user] = state.userAPI.user;
 
   const [cart] = state.userAPI.cart;
 
   const [menu, setMenu] = useState(false);
   const [button, setButton] = useState(true);
 
-  const menuClassname = ["nav-menu-3", "nav-menu-5"];
+  const menuClassname = ['nav-menu-3', 'nav-menu-5'];
 
   const checkMenuSize = isAdmin ? menuClassname[1] : menuClassname[0];
 
@@ -46,28 +37,28 @@ const Header = () => {
   const [avatar, setAvatar] = useState(true);
   const [toggleShakingCart, setToggleShakingCart] =
     state.userAPI.toggleShakingCart;
-  const [token] = state.token;
+  // const [token] = state.token;
   const useStyles = makeStyles((theme) => ({
     infoIn: {
-      backgroundColor: "white",
-      height: "0px",
-      width: "0px",
-      position: "absolute",
-      top: "58px",
-      transition: "all 0.5s ease",
-      right: "0.5rem",
-      overflow: "hidden",
+      backgroundColor: 'white',
+      height: '0px',
+      width: '0px',
+      position: 'absolute',
+      top: '58px',
+      transition: 'all 0.5s ease',
+      right: '0.5rem',
+      overflow: 'hidden',
     },
     infoOut: {
-      backgroundColor: "white",
-      position: "absolute",
-      top: "58px",
-      transition: "all 0.5s ease",
-      overflow: "hidden",
-      right: "0.5rem",
+      backgroundColor: 'white',
+      position: 'absolute',
+      top: '58px',
+      transition: 'all 0.5s ease',
+      overflow: 'hidden',
+      right: '0.5rem',
       padding: theme.spacing(2),
-      elevation: "3",
-      width: "300px",
+      elevation: '3',
+      width: '300px',
     },
     root: {
       maxWidth: 345,
@@ -76,7 +67,7 @@ const Header = () => {
       height: 140,
     },
     root: {
-      "& > *": {
+      '& > *': {
         margin: theme.spacing(1),
       },
     },
@@ -111,10 +102,10 @@ const Header = () => {
     showButton();
   }, []);
 
-  window.addEventListener("resize", showButton);
+  window.addEventListener('resize', showButton);
 
   const logOutUser = async () => {
-    await axios.get("/user/logout");
+    await axios.get('/user/logout');
     setIsAdmin(false);
     setIsLogged(false);
   };
@@ -172,7 +163,7 @@ const Header = () => {
     logOutUser();
   };
 
-  console.log(menu);
+  // console.log(menu);
   const loggedRouter = () => {
     return (
       <>
@@ -247,14 +238,14 @@ const Header = () => {
     return (
       <Grid
         container
-        style={{ width: "30%", position: "relative" }}
+        style={{ width: '30%', position: 'relative' }}
         justify="center"
       >
         <Fab
-          style={{ borderRadius: "100px" }}
+          style={{ borderRadius: '100px' }}
           color="primary"
           aria-label="add"
-          style={{ padding: "0.5rem" }}
+          style={{ padding: '0.5rem' }}
           onClick={() => setAvatar(!avatar)}
         >
           <Avatar
@@ -270,31 +261,31 @@ const Header = () => {
             justify="center"
             alignItems="center"
           >
-            <Fab color="primary" aria-label="add" style={{ margin: "1rem" }}>
+            <Fab color="primary" aria-label="add" style={{ margin: '1rem' }}>
               <Avatar
                 alt="Remy Sharp"
                 src={user.avatar}
                 className={classes.large}
               />
             </Fab>
-            <Typography variant="h5" style={{ fontWeight: "600" }}>
+            <Typography variant="h5" style={{ fontWeight: '600' }}>
               {user.name}
             </Typography>
             <Typography>{user.email}</Typography>
             <Link
               onClick={() => setAvatar(!avatar)}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               to="/profile"
             >
               <ButtonUI
                 fullWidth
                 style={{
-                  marginTop: "1rem",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  borderBottom: "none",
-                  borderRadius: "0",
-                  fontSize: "large",
+                  marginTop: '1rem',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                  borderBottom: 'none',
+                  borderRadius: '0',
+                  fontSize: 'large',
                 }}
                 startIcon={<FaceIcon></FaceIcon>}
                 variant="outlined"
@@ -302,13 +293,13 @@ const Header = () => {
                 Profile
               </ButtonUI>
             </Link>
-            <Link style={{ width: "100%" }} to="/" onClick={onClickEvents}>
+            <Link style={{ width: '100%' }} to="/" onClick={onClickEvents}>
               <ButtonUI
                 fullWidth
                 style={{
-                  border: "none",
-                  borderRadius: "0",
-                  fontSize: "large",
+                  border: 'none',
+                  borderRadius: '0',
+                  fontSize: 'large',
                 }}
                 startIcon={<ExitToAppIcon></ExitToAppIcon>}
                 variant="outlined"
@@ -334,10 +325,10 @@ const Header = () => {
               ToggleHome();
             }}
           >
-            {isAdmin ? "Admin" : "MamMam "}
+            {isAdmin ? 'Admin' : 'MamMam '}
           </Link>
           <div className="menu-icon" onClick={() => setMenu(!menu)}>
-            <i className={menu ? "fas fa-times" : "fas fa-bars"}></i>
+            <i className={menu ? 'fas fa-times' : 'fas fa-bars'}></i>
           </div>
         </Grid>
         <Grid item xs={8}>
@@ -350,7 +341,7 @@ const Header = () => {
                 onClick={() => setMenu(false)}
                 className="nav-links"
               >
-                {isAdmin ? "Products" : "Shopping"}
+                {isAdmin ? 'Products' : 'Shopping'}
               </Link>
             </li>
 
@@ -393,7 +384,7 @@ const Header = () => {
               {!isAdmin && isLogged && (
                 <div
                   className={
-                    toggleShakingCart ? "cart-icon active" : "cart-icon"
+                    toggleShakingCart ? 'cart-icon active' : 'cart-icon'
                   }
                 >
                   <span>{cart.length}</span>
@@ -411,7 +402,7 @@ const Header = () => {
         )}
         {button && (
           <Grid item xs>
-            {location.pathname === "/products" && <SearchBox />}
+            {location.pathname === '/products' && <SearchBox />}
           </Grid>
         )}
       </Grid>

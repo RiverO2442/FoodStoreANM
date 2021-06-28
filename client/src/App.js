@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+import React from 'react';
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import { DataProvider } from "./GlobalState";
+import { DataProvider } from './GlobalState';
 
-import Header from "./components/headers/Header";
+import Header from './components/headers/Header';
 
-import Pages from "./components/main_pages/Pages";
+import Pages from './components/main_pages/Pages';
 
-import Footer from "./components/footer/Footer";
+import Footer from './components/footer/Footer';
 
-import BackToTopBtn from "./components/Back-To-Top-Button/BackToTopBtn";
+import BackToTopBtn from './components/Back-To-Top-Button/BackToTopBtn';
 
-import ShopGoogleMap from "./GoogleMap";
+// import ShopGoogleMap from './GoogleMap';
 
-import "./App.css";
+import './App.css';
 
 function App() {
   return (

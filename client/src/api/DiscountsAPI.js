@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const DiscountsAPI = (token) => {
   const [discounts, setDiscounts] = useState([]);
@@ -7,7 +7,7 @@ const DiscountsAPI = (token) => {
 
   useEffect(() => {
     const getDiscounts = async () => {
-      const res = await axios.get("/api/discount");
+      const res = await axios.get('/api/discount');
       setDiscounts(res.data);
     };
     getDiscounts();

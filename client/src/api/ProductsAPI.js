@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ProductsAPI = () => {
   const [products, setProducts] = useState([]);
   const [callback, setCallback] = useState(false);
-  const [category, setCategory] = useState("");
-  const [sort, setSort] = useState("");
-  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState('');
+  const [sort, setSort] = useState('');
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [result, setResult] = useState(0);
 
@@ -14,7 +14,7 @@ const ProductsAPI = () => {
     const res = await axios.get(
       `/api/products?limit=${
         page * 9
-      }&${category}&${sort}&title[regex]=${search}`
+      }&${category}&${sort}&title[regex]=${search}`,
     );
     setProducts(res.data.products);
     setResult(res.data.result);
