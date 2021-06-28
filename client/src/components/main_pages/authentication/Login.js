@@ -7,8 +7,6 @@ import { GoogleLogin } from "react-google-login";
 
 import FacebookLogin from "react-facebook-login";
 
-import swal from "sweetalert";
-
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";

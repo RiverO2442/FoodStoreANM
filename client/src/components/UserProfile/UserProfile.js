@@ -10,9 +10,8 @@ import UserActive from "./UserActive";
 
 import Notification from "../main_pages/discounts/Controls/Notification";
 
-import TableContainer from "@material-ui/core/TableContainer";
 import Input from "../main_pages/discounts/Controls/Input";
-import Typography from "@material-ui/core/Typography";
+
 import {
   InputAdornment,
   makeStyles,
@@ -28,7 +27,7 @@ import {
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { Search } from "@material-ui/icons";
-import AddIcon from "@material-ui/icons/Add";
+
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";

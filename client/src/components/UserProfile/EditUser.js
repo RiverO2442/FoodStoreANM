@@ -6,11 +6,6 @@ import Notification from "../main_pages/discounts/Controls/Notification";
 import { GlobalState } from "../../GlobalState";
 
 import "./EditUser.css";
-import {
-  showErrorMessage,
-  showSuccessMessage,
-} from "../main_pages/Utils/Notification/Notification";
-
 //MUI
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -32,8 +27,6 @@ const EditUser = () => {
   const history = useHistory();
   const [editUser, setEditUser] = useState([]);
   const [checkAdmin, setCheckAdmin] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [number, setNumber] = useState(0);
   const [callback, setCallback] = state.userAPI.callback;
 
@@ -67,7 +60,6 @@ const EditUser = () => {
           message: "Update Successfully !",
           type: "success",
         });
-        setSuccess(res.data.msg);
         setNumber(0);
       }
     } catch (error) {
@@ -82,8 +74,6 @@ const EditUser = () => {
   };
 
   const handleCheck = () => {
-    setError("");
-    setSuccess("");
     setCheckAdmin(!checkAdmin);
     setNumber(number + 1);
   };
@@ -200,7 +190,6 @@ const EditUser = () => {
             Go Back
           </Button>
         </form>
-        {success && showSuccessMessage(success)}
       </div>
     </Container>
     // <div className="profile_page edit_user">

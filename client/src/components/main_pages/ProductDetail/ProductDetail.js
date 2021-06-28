@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import { GlobalState } from "../../../GlobalState";
 import "./ProductDetail.css";
 import ProductItem from "../Utils/productItem/ProductItem";
-import img from "./img.png";
 
 import ProductItemStarRating from "../Utils/productItem/ProductItemStarRating/ProductItemStarRating";
 
@@ -15,28 +14,12 @@ import Tags from "./Tags";
 
 import Comments from "./Comments/Comments";
 
-import ReadMore from "./ReadMore";
-
-import {
-  InputAdornment,
-  makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-  Toolbar,
-  Paper,
-} from "@material-ui/core";
+import { makeStyles, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
+
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import CardMedia from "@material-ui/core/CardMedia";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 const ProductDetail = () => {

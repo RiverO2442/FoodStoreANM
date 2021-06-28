@@ -22,7 +22,6 @@ import EditUser from "../UserProfile/EditUser";
 
 import { AnimatePresence } from "framer-motion";
 
-
 import Messenger from "../Messenger/Messenger";
 
 // import AboutUs from "./about us/AboutUs";
@@ -42,7 +41,7 @@ const Pages = () => {
     <>
       <AnimatePresence>
         <Switch>
-          <Route path="/" exact component={HomePage}></Route>
+          <Route path="/" exact component={Products}></Route>
           <Route path="/products" exact component={Products}></Route>
           <Route path="/detail/:id" exact component={ProductDetail}></Route>
           <Route
@@ -81,7 +80,7 @@ const Pages = () => {
             exact
             component={isLogged ? UserProfile : NotFound}
           ></Route>
-{/* 
+          {/* 
           <Route
             path="/aboutus"
             exact
