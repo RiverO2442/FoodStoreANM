@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {
-  showErrorMessage,
-  showSuccessMessage,
-} from "../Utils/Notification/Notification";
 import Notification from "../discounts/Controls/Notification";
 
 const ActivationEmail = () => {

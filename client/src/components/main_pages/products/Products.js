@@ -4,9 +4,6 @@ import ProductItem from "../Utils/productItem/ProductItem";
 import "./Products.css";
 import Loading from "../Utils/Loading/Loading";
 import axios from "axios";
-import FiltersProducts from "./FilterProducts";
-import LoadMore from "./LoadMore";
-import background from "./fast-food.jpg";
 import swal from "sweetalert";
 import Pagination from "./Pagination";
 

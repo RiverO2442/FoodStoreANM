@@ -4,21 +4,13 @@ import { GlobalState } from "../../../../GlobalState";
 import "../Cart.css";
 import axios from "axios";
 import PaypalButton from "../PayPalButton";
-import { Link, useLocation } from "react-router-dom";
+
 import moment from "moment";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import CardMedia from "@material-ui/core/CardMedia";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import { Button } from "@material-ui/core";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";

@@ -179,7 +179,7 @@ const Header = () => {
             History
           </Link>
         </li>
-        {!isAdmin && (
+        {/* {!isAdmin && (
           <li className="nav-item">
             <Link
               to="/aboutus"
@@ -192,7 +192,7 @@ const Header = () => {
               About Us
             </Link>
           </li>
-        )}
+        )} */}
         <li>
           <Link
             className="nav-items"
@@ -345,7 +345,7 @@ const Header = () => {
               </Link>
             </li>
 
-            {isAdmin && adminRouter()}
+            {/* {isAdmin && adminRouter()} */}
 
             {isLogged ? (
               loggedRouter()
@@ -356,7 +356,7 @@ const Header = () => {
                   onClick={() => setMenu(false)}
                   className="nav-links-mobile"
                 >
-                  Sign Up
+                  SIGN IN
                 </Link>
               </li>
             )}

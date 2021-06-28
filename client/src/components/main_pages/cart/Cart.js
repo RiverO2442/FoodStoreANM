@@ -3,7 +3,7 @@ import { GlobalState } from "../../../GlobalState";
 
 import "./Cart.css";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { makeStyles } from "@material-ui/core/styles";

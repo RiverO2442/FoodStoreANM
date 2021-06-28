@@ -1,7 +1,20 @@
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { isLength, isMatch } from "../main_pages/Utils/Validation/Validation";
+import { GlobalState } from "../../GlobalState";
+
+import "./UserProfile.css";
+
+import UserActive from "./UserActive";
+
+import Notification from "../main_pages/discounts/Controls/Notification";
+
+import Input from "../main_pages/discounts/Controls/Input";
+
 import {
   InputAdornment,
   makeStyles,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -10,50 +23,43 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { Search } from '@material-ui/icons';
-import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import axios from 'axios';
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { GlobalState } from '../../GlobalState';
-import Input from '../main_pages/discounts/Controls/Input';
-import Notification from '../main_pages/discounts/Controls/Notification';
-import { isLength, isMatch } from '../main_pages/Utils/Validation/Validation';
-import UserActive from './UserActive';
-import './UserProfile.css';
+  Paper,
+} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import { Search } from "@material-ui/icons";
+
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 
 const initialState = {
-  name: '',
-  password: '',
-  confirm_password: '',
-  error: '',
-  success: '',
+  name: "",
+  password: "",
+  confirm_password: "",
+  error: "",
+  success: "",
 };
 //MUI table
 const UserProfile = () => {
   const useStyles = makeStyles((theme) => ({
     table: {
       marginTop: theme.spacing(3),
-      '& thead th': {
-        fontWeight: '600',
+      "& thead th": {
+        fontWeight: "600",
         color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.light,
       },
-      '& tbody td': {
-        fontWeight: '300',
+      "& tbody td": {
+        fontWeight: "300",
       },
-      '& tbody tr:hover': {
-        backgroundColor: '#fffbf2',
-        cursor: 'pointer',
+      "& tbody tr:hover": {
+        backgroundColor: "#fffbf2",
+        cursor: "pointer",
       },
     },
     searchInput: {
-      width: '75%',
+      width: "75%",
     },
     pageContent: {
       margin: theme.spacing(5),
@@ -61,88 +67,88 @@ const UserProfile = () => {
     },
     pageContent2: {},
     newButton: {
-      position: 'absolute',
-      right: '10px',
-      padding: '20px 20px',
+      position: "absolute",
+      right: "10px",
+      padding: "20px 20px",
     },
     button: {
-      paddingRight: '10px',
+      paddingRight: "10px",
     },
   }));
   const classes = useStyles();
-  // const [setOpenPopUp] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState(false);
 
   //Notification
   const [notify, setNotify] = useState({
     isOpen: false,
-    message: '',
-    type: '',
+    message: "",
+    type: "",
   });
 
   //Confirm Dialog
-  // const [confirmDialog, setConfirmDialog] = useState({
-  //   isOpen: false,
-  //   title: "",
-  //   subTitle: "",
-  // });
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   const favheadCells = [
     {
-      id: 'index',
-      label: 'Index',
+      id: "index",
+      label: "Index",
       disableSorting: true,
     },
     {
-      id: 'title',
-      label: 'Product Name',
+      id: "title",
+      label: "Product Name",
     },
     {
-      id: 'price',
-      label: 'Price',
+      id: "price",
+      label: "Price",
     },
     {
-      id: 'description',
-      label: 'Description',
+      id: "description",
+      label: "Description",
     },
     {
-      id: 'actions',
-      label: 'Action',
+      id: "actions",
+      label: "Action",
       colSpan: 4,
       disableSorting: true,
     },
   ];
   const headCells = [
     {
-      id: 'index',
-      label: 'Index',
+      id: "index",
+      label: "Index",
       disableSorting: true,
     },
     {
-      id: 'Status',
-      label: 'Status',
+      id: "Status",
+      label: "Status",
       disableSorting: true,
     },
     {
-      id: 'name',
-      label: 'User Name',
+      id: "name",
+      label: "User Name",
     },
     {
-      id: 'email',
-      label: 'User Mail',
+      id: "email",
+      label: "User Mail",
     },
     {
-      id: 'role',
-      label: 'Admin',
+      id: "role",
+      label: "Admin",
     },
     {
-      id: 'actions',
-      label: 'Action',
+      id: "actions",
+      label: "Action",
       colSpan: 4,
       disableSorting: true,
     },
   ];
 
-  const handleChangePage = (newPage) => {
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
@@ -172,7 +178,7 @@ const UserProfile = () => {
   }
 
   function getComparator(order, orderBy) {
-    return order === 'desc'
+    return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
@@ -181,10 +187,10 @@ const UserProfile = () => {
     let target = event.target;
     setFilterFunc({
       func: (allUsers) => {
-        if (target.value === '') return allUsers;
+        if (target.value === "") return allUsers;
         else
           return allUsers.filter((user) =>
-            user.name.toLowerCase().includes(target.value.toLowerCase()),
+            user.name.toLowerCase().includes(target.value.toLowerCase())
           );
       },
     });
@@ -194,10 +200,10 @@ const UserProfile = () => {
     let target = event.target;
     setFilterFunc({
       func: (favoriteProducts) => {
-        if (target.value === '') return favoriteProducts;
+        if (target.value === "") return favoriteProducts;
         else
           return favoriteProducts.filter((product) =>
-            product.title.toLowerCase().includes(target.value.toLowerCase()),
+            product.title.toLowerCase().includes(target.value.toLowerCase())
           );
       },
     });
@@ -206,30 +212,30 @@ const UserProfile = () => {
   const recordsAfterPagingAndSorting = () => {
     return tableSort(
       filterFunc.func(allUsers),
-      getComparator(order, orderBy),
+      getComparator(order, orderBy)
     ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   const recordsAfterPagingAndSortingFav = () => {
     return tableSort(
       filterFunc.func(favoriteProducts),
-      getComparator(order, orderBy),
+      getComparator(order, orderBy)
     ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   };
 
   const handleSortLabel = (cellID) => {
-    const isAsc = orderBy === cellID && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === cellID && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(cellID);
   };
 
-  const [pages] = useState([5, 10, 25]);
+  const [pages, setPages] = useState([5, 10, 25]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [order, setOrder] = useState('');
-  const [orderBy, setOrderBy] = useState('');
+  const [order, setOrder] = useState("");
+  const [orderBy, setOrderBy] = useState("");
   const [filterFunc, setFilterFunc] = useState({
     func: (allUsers) => {
       return allUsers;
@@ -239,9 +245,9 @@ const UserProfile = () => {
 
   const state = useContext(GlobalState);
   const [token] = state.token;
-  const [isAdmin] = state.userAPI.isAdmin;
-  const [user] = state.userAPI.user;
-  const [allUsers] = state.userAPI.allUsers;
+  const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
+  const [user, setUser] = state.userAPI.user;
+  const [allUsers, setAllUsers] = state.userAPI.allUsers;
   const [callback, setCallback] = state.userAPI.callback;
 
   const [favoriteProducts, setfavoriteProducts] =
@@ -251,11 +257,11 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState(initialState);
-  const { name, password, confirm_password } = data;
+  const { name, password, confirm_password, error, success } = data;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value, error: '', success: '' });
+    setData({ ...data, [name]: value, error: "", success: "" });
   };
 
   const changeAvatar = async (e) => {
@@ -266,34 +272,34 @@ const UserProfile = () => {
       if (!file)
         return setNotify({
           isOpen: true,
-          message: 'No file uploaded!',
-          type: 'error',
+          message: "No file uploaded!",
+          type: "error",
         });
       //1MB
       if (file.size > 1024 * 1024) {
         return setNotify({
           isOpen: true,
-          message: 'Size too large!',
-          type: 'error',
+          message: "Size too large!",
+          type: "error",
         });
       }
 
-      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      if (file.type !== "image/jpeg" && file.type !== "image/png") {
         return setNotify({
           isOpen: true,
-          message: 'Invalid format!',
-          type: 'error',
+          message: "Invalid format!",
+          type: "error",
         });
       }
 
       let formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
       setLoading(true);
 
-      const res = await axios.post('/api/upload_avatar', formData, {
+      const res = await axios.post("/api/upload_avatar", formData, {
         headers: {
-          'content-type': 'multipart/form-data',
+          "content-type": "multipart/form-data",
           Authorization: token,
         },
       });
@@ -305,7 +311,7 @@ const UserProfile = () => {
       setNotify({
         isOpen: true,
         message: error.response.data.msg,
-        type: 'error',
+        type: "error",
       });
     }
   };
@@ -313,28 +319,28 @@ const UserProfile = () => {
   const updateUser = () => {
     try {
       axios.patch(
-        '/user/update',
+        "/user/update",
         {
           name: name ? name : user.name,
           avatar: avatar ? avatar : user.avatar,
         },
         {
           headers: { Authorization: token },
-        },
+        }
       );
       setCallback(!callback);
       console.log(token);
 
       setNotify({
         isOpen: true,
-        message: 'Updated Successfully',
-        type: 'success',
+        message: "Updated Successfully",
+        type: "success",
       });
     } catch (error) {
       setNotify({
         isOpen: true,
         message: error.response.data.msg,
-        type: 'error',
+        type: "error",
       });
     }
   };
@@ -343,33 +349,33 @@ const UserProfile = () => {
     if (isLength(password)) {
       return setNotify({
         isOpen: true,
-        message: 'Password must be at least 6 characters.',
-        type: 'error',
+        message: "Password must be at least 6 characters.",
+        type: "error",
       });
     }
     if (!isMatch(password, confirm_password)) {
       return setNotify({
         isOpen: true,
-        message: 'Passwords do not match !',
-        type: 'error',
+        message: "Passwords do not match !",
+        type: "error",
       });
     }
     try {
       axios.post(
-        '/user/reset',
+        "/user/reset",
         { password },
         {
           headers: { Authorization: token },
-        },
+        }
       );
-      setData({ ...data, error: '', success: 'Updated Successfully' });
+      setData({ ...data, error: "", success: "Updated Successfully" });
       setNotify({
         isOpen: true,
-        message: 'Update Successfully',
-        type: 'success',
+        message: "Update Successfully",
+        type: "success",
       });
     } catch (error) {
-      setData({ ...data, error: error.response.data.msg, success: '' });
+      setData({ ...data, error: error.response.data.msg, success: "" });
     }
   };
 
@@ -384,7 +390,7 @@ const UserProfile = () => {
     try {
       // tranh truong hop tu huy , k dc tu xoa ban than
       if (user._id !== id) {
-        if (window.confirm('Are you sure you want to delete this account?')) {
+        if (window.confirm("Are you sure you want to delete this account?")) {
           setLoading(true);
           await axios.delete(`/user/delete/${id}`, {
             headers: { Authorization: token },
@@ -396,22 +402,22 @@ const UserProfile = () => {
         setNotify({
           isOpen: true,
           message: "You can't delete yourself",
-          type: 'error',
+          type: "error",
         });
       }
     } catch (error) {
-      setData({ ...data, error: error.response.data.msg, success: '' });
+      setData({ ...data, error: error.response.data.msg, success: "" });
     }
   };
 
   // custom hàm addtofavorite List lại vì nó chỉ thực hiện duy nhất là set cái list này lại thôi.
   const addToFavoriteList = async (favoriteProducts) => {
     await axios.patch(
-      '/user/add_favoriteList',
+      "/user/add_favoriteList",
       { favoriteProducts },
       {
         headers: { Authorization: token },
-      },
+      }
     );
   };
 
@@ -419,7 +425,7 @@ const UserProfile = () => {
   const handleDeleteFavoriteProduct = (id) => {
     if (
       window.confirm(
-        'Are you sure to remove this product from your favorite list ?',
+        "Are you sure to remove this product from your favorite list ?"
       )
     ) {
       favoriteProducts.forEach((product, index) => {
@@ -444,7 +450,7 @@ const UserProfile = () => {
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            style={{ minHeight: '700px' }}
+            style={{ minHeight: "700px" }}
           >
             <Grid item xs={4}>
               <div className="col-left">
@@ -513,14 +519,14 @@ const UserProfile = () => {
                     onChange={handleChange}
                   />
                   <div>
-                    <em style={{ color: 'crimson' }}>
+                    <em style={{ color: "crimson" }}>
                       * If you update your password here, you won't able to
                       login quickly using google and facebook.
                     </em>
                   </div>
 
                   <Button
-                    style={{ marginTop: '15px' }}
+                    style={{ marginTop: "15px" }}
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -533,9 +539,9 @@ const UserProfile = () => {
                 </form>
               </div>
             </Grid>
-            <Grid item xs={8} style={{ paddingTop: '5%' }}>
+            <Grid item xs={8} style={{ paddingTop: "5%" }}>
               {isAdmin ? (
-                <div style={{ overflowX: 'auto' }}>
+                <div style={{ overflowX: "auto" }}>
                   <Toolbar>
                     <Input
                       onChange={handleSearch}
@@ -553,7 +559,7 @@ const UserProfile = () => {
                   <Table className={classes.table}>
                     <TableHead>
                       <TableRow>
-                        <TableCell style={{ color: 'white' }} colSpan={7}>
+                        <TableCell style={{ color: "white" }} colSpan={7}>
                           User Table
                         </TableCell>
                       </TableRow>
@@ -561,12 +567,12 @@ const UserProfile = () => {
                         {headCells.map((headCell) => (
                           <TableCell
                             align="center"
-                            colSpan={headCell.id == 'actions' ? '2' : '1'}
+                            colSpan={headCell.id == "actions" ? "2" : "1"}
                             key={headCell.id}
                             sortDirection={
                               orderBy === headCell.id ? order : false
                             }
-                            style={{ color: '#eee' }}
+                            style={{ color: "#eee" }}
                           >
                             {headCell.disableSorting ? (
                               headCell.label
@@ -574,7 +580,7 @@ const UserProfile = () => {
                               <TableSortLabel
                                 active={orderBy === headCell.id}
                                 direction={
-                                  orderBy === headCell.id ? order : 'asc'
+                                  orderBy === headCell.id ? order : "asc"
                                 }
                                 onClick={() => {
                                   handleSortLabel(headCell.id);
@@ -601,7 +607,7 @@ const UserProfile = () => {
                               <i
                                 className="fas fa-check"
                                 title="Admin"
-                                style={{ color: 'green' }}
+                                style={{ color: "green" }}
                               ></i>
                             ) : (
                               <i className="fas fa-times" title="User"></i>
@@ -609,7 +615,7 @@ const UserProfile = () => {
                           </TableCell>
                           <TableCell
                             style={{
-                              borderRightColor: 'white',
+                              borderRightColor: "white",
                             }}
                             align="center"
                           >
@@ -646,7 +652,7 @@ const UserProfile = () => {
                   ></TablePagination>
                 </div>
               ) : (
-                <div style={{ overflowX: 'auto' }}>
+                <div style={{ overflowX: "auto" }}>
                   <Toolbar>
                     <Input
                       onChange={handleSearchFav}
@@ -664,7 +670,7 @@ const UserProfile = () => {
                   <Table className={classes.table}>
                     <TableHead>
                       <TableRow>
-                        <TableCell style={{ color: 'white' }} colSpan={7}>
+                        <TableCell style={{ color: "white" }} colSpan={7}>
                           Favorite Table
                         </TableCell>
                       </TableRow>
@@ -676,7 +682,7 @@ const UserProfile = () => {
                             sortDirection={
                               orderBy === favheadCell.id ? order : false
                             }
-                            style={{ color: '#eee' }}
+                            style={{ color: "#eee" }}
                           >
                             {favheadCell.disableSorting ? (
                               favheadCell.label
@@ -684,7 +690,7 @@ const UserProfile = () => {
                               <TableSortLabel
                                 active={orderBy === favheadCell.id}
                                 direction={
-                                  orderBy === favheadCell.id ? order : 'asc'
+                                  orderBy === favheadCell.id ? order : "asc"
                                 }
                                 onClick={() => {
                                   handleSortLabel(favheadCell.id);
@@ -723,7 +729,7 @@ const UserProfile = () => {
                               ></Button>
                             </TableCell>
                           </TableRow>
-                        ),
+                        )
                       )}
                     </TableBody>
                   </Table>
