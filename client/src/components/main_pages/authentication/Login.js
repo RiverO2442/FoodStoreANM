@@ -211,7 +211,7 @@ const Login = () => {
                     appId="577453733250676"
                     autoLoad={false}
                     fields="name,email,picture"
-                    callback={responseFacebook}
+                    // callback={responseFacebook}
                   />
                 </div>
               </Grid>

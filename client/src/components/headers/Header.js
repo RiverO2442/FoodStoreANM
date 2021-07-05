@@ -403,6 +403,7 @@ const Header = () => {
         {button && (
           <Grid item xs>
             {location.pathname === '/products' && <SearchBox />}
+            {location.pathname === '/' && <SearchBox />}
           </Grid>
         )}
       </Grid>

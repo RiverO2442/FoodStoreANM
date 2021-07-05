@@ -29,8 +29,8 @@ import Messenger from "../Messenger/Messenger";
 // import Categories from "./Categories/Categories";
 // import CreateProduct from "./createProduct/CreateProduct";
 // import HomePage from "./HomePage/HomePage";
-// import OrderHistory from "./History/OrderHistory";
-// import OrderDetail from "./History/OrderDetail";
+import OrderHistory from "./History/OrderHistory";
+import OrderDetail from "./History/OrderDetail";
 
 const Pages = () => {
   const state = useContext(GlobalState);
@@ -103,7 +103,7 @@ const Pages = () => {
 
           <Route path="/ThankYou" exact component={ThankYou}></Route>
 
-          {/* <Route
+          <Route
             path="/history"
             exact
             component={isLogged ? OrderHistory : NotFound}
@@ -114,7 +114,7 @@ const Pages = () => {
             exact
             component={isLogged ? OrderDetail : NotFound}
           ></Route>
-
+{/* 
           <Route
             path="/category"
             exact

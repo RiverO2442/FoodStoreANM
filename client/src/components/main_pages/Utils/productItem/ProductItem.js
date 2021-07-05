@@ -162,7 +162,7 @@ const ProductItem = ({ product, isAdmin, deleteProduct, handleCheck }) => {
           >
             ${product.price}
           </Typography>
-          <Typography variant="h7">{category.name}</Typography>
+          {/* <Typography variant="h7">{category.name}</Typography> */}
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph>{product.description}</Typography>
