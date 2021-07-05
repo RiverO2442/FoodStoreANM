@@ -1,7 +1,7 @@
-const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 const { OAuth2 } = google.auth;
-const OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground";
+const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
 
 const {
   MAILING_SERVICE_CLIENT_ID,
@@ -14,7 +14,7 @@ const oauth2Client = new OAuth2(
   MAILING_SERVICE_CLIENT_ID,
   MAILING_SERVICE_CLIENT_SECRET,
   MAILING_SERVICE_REFRESH_TOKEN,
-  OAUTH_PLAYGROUND
+  OAUTH_PLAYGROUND,
 );
 
 // send mail
@@ -25,9 +25,9 @@ const sendEmail = (to, url, txt) => {
 
   const accessToken = oauth2Client.getAccessToken();
   const smtpTransport = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
-      type: "OAuth2",
+      type: 'OAuth2',
       user: SENDER_EMAIL_ADDRESS,
       clientId: MAILING_SERVICE_CLIENT_ID,
       clientSecret: MAILING_SERVICE_CLIENT_SECRET,
@@ -39,11 +39,11 @@ const sendEmail = (to, url, txt) => {
   const mailOptions = {
     from: SENDER_EMAIL_ADDRESS,
     to: to,
-    subject: "MAMMAM SHOP",
+    subject: 'WELCOME TO OUR WEBSITE',
     html: `
             <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-            <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to the MAMMAM SHOP.</h2>
-            <p>Congratulations! You're almost set to start using MAMMAM✮SHOP.
+            <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to our website.</h2>
+            <p>Hello there, you're almost done for registering our website.
                 Just click the button below to validate your email address.
             </p>
             
