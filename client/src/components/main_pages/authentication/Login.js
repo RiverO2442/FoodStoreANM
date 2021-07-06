@@ -1,49 +1,51 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "./Login.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import './Login.css';
 
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from 'react-google-login';
 
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin from 'react-facebook-login';
 
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Notification from "../discounts/Controls/Notification";
+import Notification from '../discounts/Controls/Notification';
+
+import Recaptcha from 'react-recaptcha';
 
 const Login = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
-      height: "90vh",
+      height: '90vh',
     },
     image: {
       backgroundImage:
-        "url(https://source.unsplash.com/collection/8593395/1600x900)",
-      backgroundRepeat: "no-repeat",
+        'url(https://source.unsplash.com/collection/8593395/1600x900)',
+      backgroundRepeat: 'no-repeat',
       backgroundColor:
-        theme.palette.type === "light"
+        theme.palette.type === 'light'
           ? theme.palette.grey[50]
           : theme.palette.grey[900],
-      backgroundSize: "cover",
-      backgroundPosition: "center",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     },
     paper: {
       margin: theme.spacing(8, 4),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     avatar: {
       margin: theme.spacing(1),
       backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: "70%", // Fix IE 11 issue.
+      width: '70%', // Fix IE 11 issue.
       marginTop: theme.spacing(1),
     },
     submit: {
@@ -54,52 +56,75 @@ const Login = () => {
   const classes = useStyles();
 
   const [user, setUser] = useState({
-    email: "",
-    password: "",
-    error: "",
-    success: "",
+    email: '',
+    password: '',
+    error: '',
+    success: '',
+  });
+
+  const [captcha, setCapcha] = useState({
+    isVerified: false,
   });
 
   const onChangeInput = (event) => {
     const { name, value } = event.target;
-    setUser({ ...user, [name]: value, error: "", success: "" });
+    setUser({ ...user, [name]: value, error: '', success: '' });
+  };
+
+  // Update and handle captcha
+  const handleVerified = () => {
+    captcha.isVerified = true;
+  };
+
+  // handle onLoad captcha
+  const onLoadCaptcha = () => {
+    captcha.isVerified = false;
   };
 
   const loginSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const { email, password } = user;
-      const res = await axios.post("/user/login", { email, password });
-      setUser({ ...user, error: "", success: res.data.msg });
+      if (captcha.isVerified == true) {
+        const res = await axios.post('/user/login', { email, password });
+        setUser({ ...user, error: '', success: res.data.msg });
 
-      window.location.href = "/";
-      setNotify({
-        isOpen: true,
-        message: "Login successfully",
-        type: "success",
-      });
+        window.location.href = '/';
+        setNotify({
+          isOpen: true,
+          message: 'Login successfully',
+          type: 'success',
+        });
+      } else {
+        setNotify({
+          isOpen: true,
+          message: 'Captcha is invalid!',
+          type: 'error',
+        });
+      }
     } catch (error) {
       setNotify({
         isOpen: true,
-        message: "Username or password is incorrect!",
-        type: "error",
+        message: 'Username or password is incorrect!',
+        type: 'error',
       });
-      setUser({ ...user, error: error.response.data.msg, success: "" });
+      setUser({ ...user, error: error.response.data.msg, success: '' });
     }
   };
 
   const responseGoogle = async (response) => {
     try {
       // console.log(response);
-      const res = await axios.post("/user/google_login", {
+      const res = await axios.post('/user/google_login', {
         tokenId: response.tokenId,
       });
 
-      setUser({ ...user, error: "", success: res.data.msg });
-      window.location.href = "/";
+      setUser({ ...user, error: '', success: res.data.msg });
+      window.location.href = '/';
     } catch (error) {
       error.response.data.msg &&
-        setUser({ ...user, error: error.response.data.msg, success: "" });
+        setUser({ ...user, error: error.response.data.msg, success: '' });
     }
   };
 
@@ -107,22 +132,22 @@ const Login = () => {
     //console.log(response);
     try {
       const { accessToken, userID } = response;
-      const res = await axios.post("/user/facebook_login", {
+      const res = await axios.post('/user/facebook_login', {
         accessToken,
         userID,
       });
-      setUser({ ...user, error: "", success: res.data.msg });
-      window.location.href = "/";
+      setUser({ ...user, error: '', success: res.data.msg });
+      window.location.href = '/';
     } catch (error) {
       error.response.data.msg &&
-        setUser({ ...user, error: error.response.data.msg, success: "" });
+        setUser({ ...user, error: error.response.data.msg, success: '' });
     }
   };
 
   const [notify, setNotify] = useState({
     isOpen: false,
-    message: "",
-    type: "",
+    message: '',
+    type: '',
   });
 
   return (
@@ -175,6 +200,13 @@ const Login = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               /> */}
+              <Recaptcha
+                sitekey="6Lfbw3obAAAAAGDuuep9JPVGkvPwZHQvUtBqBKji"
+                render="explicit"
+                onloadCallback={onLoadCaptcha}
+                verifyCallback={handleVerified}
+              />
+
               <Button
                 type="submit"
                 fullWidth
@@ -200,12 +232,12 @@ const Login = () => {
                     <p></p>
                   </Grid>
                 </Grid>
-                <div style={{ paddingTop: "5%" }} className="social">
+                <div style={{ paddingTop: '5%' }} className="social">
                   <GoogleLogin
                     clientId="465399330410-mf31k69b3j7pg371ivpm9es19d83agnb.apps.googleusercontent.com"
                     buttonText="Login with Google"
                     onSuccess={responseGoogle}
-                    cookiePolicy={"single_host_origin"}
+                    cookiePolicy={'single_host_origin'}
                   />
                   <FacebookLogin
                     appId="577453733250676"
