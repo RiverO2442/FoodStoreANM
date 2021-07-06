@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { isEmail } from "../Utils/Validation/Validation";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { isEmail } from '../Utils/Validation/Validation';
 import {
   showErrorMessage,
   showSuccessMessage,
-} from "../Utils/Notification/Notification";
+} from '../Utils/Notification/Notification';
 
-import "./ForgotPassword.css";
+import './ForgotPassword.css';
 
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
 
-import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const initialState = {
-  email: "",
-  error: "",
-  success: "",
+  email: '',
+  error: '',
+  success: '',
 };
 
 const ForgotPassword = () => {
   const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     avatar: {
       margin: theme.spacing(1),
       backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: "100%", // Fix IE 11 issue.
+      width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(3),
     },
     submit: {
@@ -51,28 +51,31 @@ const ForgotPassword = () => {
 
   const { email, error, success } = data;
 
+  // Thay đổi input trong trường forgot password
+
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value, error: "", success: "" });
+    setData({ ...data, [name]: value, error: '', success: '' });
   };
 
-  const forgotPassword = async () => {
+  const forgotPassword = async (e) => {
+    e.preventDefault();
     if (!isEmail(email)) {
-      return setData({ ...data, error: "Invalid email", success: "" });
-    }
-
-    try {
-      const res = await axios.post("/user/forget", { email });
-      return setData({ ...data, error: "", success: res.data.msg });
-    } catch (error) {
-      error.response.data.msg &&
-        setData({ ...data, error: error.response.data.msg, success: "" });
+      return setData({ ...data, error: 'Invalid email', success: '' });
+    } else {
+      try {
+        const res = await axios.post('/user/forget', { email });
+        return setData({ ...data, error: '', success: res.data.msg });
+      } catch (error) {
+        error.response.data.msg &&
+          setData({ ...data, error: error.response.data.msg, success: '' });
+      }
     }
   };
 
   return (
     <div className="fg_pass">
-      <Container style={{ minHeight: "700px" }} component="main" maxWidth="xs">
+      <Container style={{ minHeight: '700px' }} component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
