@@ -35,6 +35,7 @@
     "react-icons": "^4.2.0",
     "react-image-magnify": "^2.7.4",
     "react-paypal-express-checkout": "^1.0.5",
+    "react-recaptcha": "^2.3.10",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
